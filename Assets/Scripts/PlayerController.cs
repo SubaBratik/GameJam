@@ -3,31 +3,43 @@ using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
-public class Player1 : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] private float _speed = 7f;
     [SerializeField] private float _jumpForce = 12f;
     [SerializeField] private TMP_Text _foodText;
 
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float checkRadius = 0.2f;
+    private bool _isGrounded;
+
+    [SerializeField] private GameObject PanelDie;
+
     private Rigidbody2D _rb;
     private float xInput;
     private bool _isJumping = false;
     private int _foodEated = 0;
-    private bool _canJump = true;
 
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        GameMaster.instance.SetChechPoint(transform.position);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (PanelDie.activeSelf)
+            return;
         xInput = Input.GetAxis("Horizontal");
 
-        if (Input.GetKeyDown(KeyCode.Space) && _canJump)
+        _isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
+
+        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
             _isJumping = true;
     }
 
@@ -41,25 +53,6 @@ public class Player1 : MonoBehaviour
         }
 
     }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            if (collision.gameObject.CompareTag("Ground"))
-            {
-                foreach (ContactPoint2D contact in collision.contacts)
-                {
-                    if (contact.normal.y > 0.5f)
-                    {
-                        _canJump = true;
-                        _isJumping = false;
-                        return;
-                    }
-                }
-            }
-
-        }
-    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -67,7 +60,10 @@ public class Player1 : MonoBehaviour
             Eat(other.gameObject);
 
         if (other.CompareTag("Spike"))
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        {
+            Debug.Log("Умер");
+            StartCoroutine(Die());
+        }
     }
 
     private void Eat(GameObject foodObject)
@@ -80,7 +76,6 @@ public class Player1 : MonoBehaviour
 
     private void Jump()
     {
-        _canJump = false;
         _isJumping = true;
         _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, _jumpForce);
     }
@@ -94,6 +89,21 @@ public class Player1 : MonoBehaviour
     public void DisableMovement()
     {
         _rb.linearVelocity = Vector2.zero;
-        this.enabled = false; //выключаем скрипт чтобы кнопки не работали
+        _rb.bodyType = RigidbodyType2D.Static;
+    }
+
+    public IEnumerator Die()
+    {
+        PanelDie.SetActive(true);
+        DisableMovement();
+
+        yield return new WaitForSeconds(1f);
+
+        transform.position = GameMaster.instance.lastCheckPointPos;
+
+
+        _rb.bodyType = RigidbodyType2D.Dynamic;
+        _rb.linearVelocity = Vector2.zero;
+        PanelDie.SetActive(false);
     }
 }

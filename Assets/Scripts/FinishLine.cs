@@ -11,7 +11,7 @@ public class FinishLine : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            collision.GetComponent<Player1>().DisableMovement();
+            collision.GetComponent<PlayerController>().DisableMovement();
 
             _loadingScreen.SetActive(true); // Показываем экран "Гусеница выросла"
 
