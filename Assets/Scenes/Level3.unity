@@ -2892,6 +2892,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7757434424166026482, guid: d059014fe21285b4f8bb499fd0563c82, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7822542143982507144, guid: d059014fe21285b4f8bb499fd0563c82, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2977,6 +2981,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d059014fe21285b4f8bb499fd0563c82, type: 3}
+--- !u!114 &669021794 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7757434424166026482, guid: d059014fe21285b4f8bb499fd0563c82, type: 3}
+  m_PrefabInstance: {fileID: 669021793}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &677287544
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7410,6 +7425,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9065077945812327042, guid: b03b40b5ad2c6074d8008c22913ed35c, type: 3}
+      propertyPath: resultText
+      value: 
+      objectReference: {fileID: 669021794}
     - target: {fileID: 9065077945812327042, guid: b03b40b5ad2c6074d8008c22913ed35c, type: 3}
       propertyPath: _loadingScreen
       value: 

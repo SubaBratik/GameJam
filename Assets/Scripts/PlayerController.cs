@@ -22,12 +22,13 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rb;
     private float xInput;
     private bool _isJumping = false;
-    private int _foodEated = 0;
+
 
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         GameMaster.instance.SetChechPoint(transform.position);
+        GameMaster.instance.ResetLevelData();
     }
 
     // Update is called once per frame
@@ -69,9 +70,13 @@ public class PlayerController : MonoBehaviour
     private void Eat(GameObject foodObject)
     {
         Destroy(foodObject);
-        _foodEated++;
+        GameMaster.instance.foodCollected++;
+        UpdateFoodUI();
+    }
 
-        _foodText.text = "Food: " + _foodEated;
+    private void UpdateFoodUI()
+    {
+        _foodText.text = "Food: " + GameMaster.instance.foodCollected + " / " + GameMaster.instance.totalFoodInLevel;
     }
 
     private void Jump()

@@ -1,3 +1,4 @@
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,16 +7,24 @@ public class FinishLine : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] GameObject _loadingScreen;
+    [SerializeField] TMP_Text resultText;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            collision.GetComponent<PlayerController>().DisableMovement();
+            PlayerController player = collision.GetComponent<PlayerController>();
+            player.DisableMovement();
 
-            _loadingScreen.SetActive(true); // Показываем экран "Гусеница выросла"
 
-            Invoke("LoadNextLevel", 3f); // Через 3 секунды загружаем следующий уровень
+
+            _loadingScreen.SetActive(true); 
+            int collected = GameMaster.instance.foodCollected;
+            int total = GameMaster.instance.totalFoodInLevel;
+
+            resultText.text = $"Вы собрали: {collected} из {total} очков!";
+
+            Invoke("LoadNextLevel", 3f); // Через 3 секунды загружается следующий уровень
         }
     }
 
@@ -23,16 +32,5 @@ public class FinishLine : MonoBehaviour
     {
         int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
         SceneManager.LoadScene(nextSceneIndex);
-    }
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

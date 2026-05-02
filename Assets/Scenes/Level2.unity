@@ -4558,6 +4558,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8992849590858925795, guid: 18991d1b671043a499f0b04a05a9338b, type: 3}
   m_PrefabInstance: {fileID: 1408183262}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1716197190 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7757434424166026482, guid: d059014fe21285b4f8bb499fd0563c82, type: 3}
+  m_PrefabInstance: {fileID: 504616649}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &1737717457
 GameObject:
   m_ObjectHideFlags: 0
@@ -4756,6 +4767,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9065077945812327042, guid: b03b40b5ad2c6074d8008c22913ed35c, type: 3}
+      propertyPath: resultText
+      value: 
+      objectReference: {fileID: 1716197190}
     - target: {fileID: 9065077945812327042, guid: b03b40b5ad2c6074d8008c22913ed35c, type: 3}
       propertyPath: _loadingScreen
       value: 
